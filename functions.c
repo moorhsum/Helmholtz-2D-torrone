@@ -479,24 +479,29 @@ double SineWeight(double t, double tau)
 		return 0.0;
 	if (MOMENT_ORDER == 2)
 	{
-		tau2 = tau * tau;
-		PI2 = PI * PI;
-		PI3 = PI2 * PI;
-
-		term1 = 2.*(20. - 40.*tau + 9.*PI2*tau + 20.*tau2) * (1. - cos(2.*PI*(t-tau)/(1.-tau))) / (3.*PI2 - 31.);
-		term2 = 9.*(PI2 + PI2 * tau) * (tau-1.)/32. * (cos(PI*(t-tau)/(1.-tau)) - cos(3.*PI*(t-tau)/(1.-tau)));
-		term3 = -9. * (3.*PI + PI3 - 6.*PI*tau + 4.*PI3*tau + 3.*PI*tau2 + PI3*tau2 ) * \
-			(3.*sin(PI*(t-tau)/(1.-tau)) - sin(3.*PI*(t-tau)/(1.-tau))) / ( 16. * (3. * PI2 - 31.) );
-
-		return (term1 + term2 + term3) / ( (tau-1.)*(tau-1.)*(tau-1.) );
+////////////////			
+//		tau2 = tau * tau;
+//		PI2 = PI * PI;
+//		PI3 = PI2 * PI;
+//
+//		term1 = 2.*(20. - 40.*tau + 9.*PI2*tau + 20.*tau2) * (1. - cos(2.*PI*(t-tau)/(1.-tau))) / (3.*PI2 - 31.);
+//		term2 = 9.*(PI2 + PI2 * tau) * (tau-1.)/32. * (cos(PI*(t-tau)/(1.-tau)) - cos(3.*PI*(t-tau)/(1.-tau)));
+//		term3 = -9. * (3.*PI + PI3 - 6.*PI*tau + 4.*PI3*tau + 3.*PI*tau2 + PI3*tau2 ) * \
+//			(3.*sin(PI*(t-tau)/(1.-tau)) - sin(3.*PI*(t-tau)/(1.-tau))) / ( 16. * (3. * PI2 - 31.) );
+//
+//		return (term1 + term2 + term3) / ( (tau-1.)*(tau-1.)*(tau-1.) );
+////////////////////////////	TESTING EXPONENTIAL KERNEL APR 2016
+		return exp( 0.5/( (t-1.)*(t-0.1) ) ) * ( CONSTA2*t*t + CONSTB2*t + CONSTC2 );
 	}
 	else	//	FIRST MOMENT	//
 	{
-		denom = tau - 1.;
-		term1 = PI * pow( cos( PI * (t-1.) /(2.*denom) ), 3.0);
-		term2 = 7. + tau + 3. * (5. + 3. * tau) * cos(PI * (tau-t)/denom);
-		term3 = sin( PI * (t-1.)/(2. * denom))/(denom*denom);
-		return term1 * term2 * term3;
+//		denom = tau - 1.;
+//		term1 = PI * pow( cos( PI * (t-1.) /(2.*denom) ), 3.0);
+//		term2 = 7. + tau + 3. * (5. + 3. * tau) * cos(PI * (tau-t)/denom);
+//		term3 = sin( PI * (t-1.)/(2. * denom))/(denom*denom);
+//		return term1 * term2 * term3;
+//		////////////////////////////	TESTING EXPONENTIAL KERNEL APR 2016
+		return exp( 0.5/( (t-1.)*(t-0.1) ) ) * ( CONSTA1*t + CONSTB1 );
 	}
 }
 
